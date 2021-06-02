@@ -31,6 +31,10 @@ import java.net.UnknownHostException;
 import java.io.BufferedReader;
 import java.net.Socket;
 import java.io.PrintWriter;
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import javaguitest.SocketClient;
 
 import nesslab.reader.api.*;
 import nesslab.reader.api.ReaderApi.CloseType;
@@ -123,7 +127,7 @@ public class Frame1 {
 	
 	double testcount = 0;
 	
-	ReaderApi Reader  = new  ReaderApi();
+	static ReaderApi Reader  = new  ReaderApi();
 	//ReaderApi Reader2 = new  ReaderApi();
 	
 	ReaderEventHandler readerhandler;
@@ -135,7 +139,12 @@ public class Frame1 {
     {
         Start,
         Stop
-    }
+	}
+	
+	static Socket cm = new Socket();
+	static SocketAddress address = new InetSocketAddress("127.0.0.1", 5001);
+
+	static String data = "123";
     
 	/**
 	 * Launch the application.
@@ -145,8 +154,12 @@ public class Frame1 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					Frame1 window = new Frame1();					
 					window.frmTest.setVisible(true);
+					cm.connect(address);
+					Reader.socketOne = cm;
+					send(cm);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -154,8 +167,24 @@ public class Frame1 {
 		});
 	}
 
+	public static void send(Socket socket) throws IOException {
+		//Person 객체 생성	
+		//생성한 person 객체를 byte array로 변환
+		//String data = "person";
+		//서버로 내보내기 위한 출력 스트림 뚫음
+		//OutputStream os = socket.getOutputStream();
+		//출력 스트림에 데이터 씀
+		//os.write(1111);
+		//보냄
+		//os.flush();
+		
+		if(socket.isConnected()){
+			PrintWriter writer = new PrintWriter(socket.getOutputStream());
+			writer.println(data);
+			writer.flush();
 
-
+		}else{}
+	}
 	/**
 	 * Create the application.
 	 */

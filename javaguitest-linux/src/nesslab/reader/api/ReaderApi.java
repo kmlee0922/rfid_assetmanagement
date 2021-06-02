@@ -16,6 +16,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.ArrayList;
 
+// Test
+import java.io.PrintWriter;
+import java.io.*;
+
 
 public class ReaderApi {
 	
@@ -260,7 +264,10 @@ public class ReaderApi {
     }
 
    
-    public String Unknown = "Unknown";    
+	public String Unknown = "Unknown";    
+
+	// socketOne
+	public Socket socketOne = null;
 
     
     // model type
@@ -689,8 +696,10 @@ public class ReaderApi {
 	//byte[] rcvBuf;
 	int nTotalSend;
 	int nTotalReceive;
-	
-	private void Analyze(ByteBuffer byteBuffer)
+
+	// 	private void Analyze(ByteBuffer byteBuffer)
+	// Test
+	private void Analyze(ByteBuffer byteBuffer) throws IOException
 	{			
 		
 		byte[] rcvBuf = byteBuffer.array();
@@ -727,13 +736,23 @@ public class ReaderApi {
                                     if (rcvBuf[idx_etx - 1] == 0x0D)
                                     {              
                                     	
-                                    	String data = s.substring(i, idx_etx - i + 1);                               	
+										String data = s.substring(i, idx_etx - i + 1);
+										//data.
+										                              	
                                    	    //String data = Encoding.ASCII.GetString(rcvBuf, i, idx_etx - i + 1);
                                         
                                         byte[] arr = new byte[idx_etx - i + 1];
                                         //Array.Copy(rcvBuf, i, arr, 0, idx_etx - i + 1);
-                                        System.arraycopy(rcvBuf, i, arr, 0, idx_etx - i + 1);
-                                        ParseEvent(data, arr);
+										System.arraycopy(rcvBuf, i, arr, 0, idx_etx - i + 1);
+										
+										ParseEvent(data, arr);
+
+										if(socketOne.isConnected()){
+											PrintWriter writer = new PrintWriter(socketOne.getOutputStream());
+											writer.println(data);
+											writer.flush();
+										}else{}
+										
                                         //ParseEvent(data, Encoding.ASCII.GetBytes(data));
                                          
                                         i = idx_etx;
@@ -811,7 +830,7 @@ public class ReaderApi {
      {
 		 System.out.println("ParseEvent()");
 		 System.out.println("txt = " + txt.toString() + "length = " + txt.length());
-	 
+
          //if(txt.substring(0, 1) == ">") // && txt.Substring(txt.Length - 1, 1) == "\n")
 		 if(txt.substring(0,1).equals(">"))
          {
