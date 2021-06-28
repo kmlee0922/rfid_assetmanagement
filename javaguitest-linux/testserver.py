@@ -1,7 +1,39 @@
 import socket
 
+rule = {
+    "30":'0', '31':'1','32':'2','33':'3','34':'4','35':'5','36':'6','37':'7','38':'8','39':'9',
+    '41':'A','42':'B','43':'C','44':'D','45':'E','46':'F','47':'G','48':'H','49':'I','4A':'J','4B':'K','4C':'L','4D':'M','4E':'N','4F':'O',
+    '50':'P','51':'Q','52':'R','53':'S','54':'T','55':'U','56':'V','57':'W','58':'X','59':'Y','5A':'Z'
+}
 
-# 접속할 서버 주소입니다. 여기에서는 루프백(loopback) 인터페이스 주소 즉 localhost를 사용합니다. 
+
+def deleted(data):
+    del_data = data[7:len(data)-1]
+    
+    return del_data
+
+def decoding(data):
+    
+    data=deleted(data)
+
+    decoding = ["",""]
+    temp=""
+    for i, value in enumerate(data):
+        if i<8:
+            if i%2==0:
+                temp+=value
+            else:
+                temp+=value
+                decoding[0]+=rule[str(temp)]
+                temp=""
+        elif value.isdigit():
+            decoding[0]+=value
+        else:
+            decoding[1]=value
+    return decoding
+
+
+# 접속할 서버 주소입니다. 여기'에서는 루프백(loopback) 인터페이스 주소 즉 localhost를 사용합니다. 
 HOST = '127.0.0.1'
 
 # 클라이언트 접속을 대기하는 포트 번호입니다.   
@@ -48,6 +80,7 @@ while True:
 
     # 수신받은 문자열을 출력합니다.
     print('Received from', addr, data.decode())
+    print(decoding(data.decode()))
 
     # 받은 문자열을 다시 클라이언트로 전송해줍니다.(에코) 
     client_socket.sendall(data)
