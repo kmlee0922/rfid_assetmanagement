@@ -1,5 +1,5 @@
 import socket
-#import test_api_post
+import test_api_post
 import test_search_device
 import time
 
@@ -10,7 +10,7 @@ rule = {
 }
 
 
-# ab = test_api_post
+aa = test_api_post
 bb = test_search_device
 
 
@@ -79,12 +79,16 @@ client_socket, addr = server_socket.accept()
 print('Connected by', addr)
 
 
+passing_item=[]
+passing_time=[]
+
 # 무한루프를 돌면서 
 while True:
 
     # 클라이언트가 보낸 메시지를 수신하기 위해 대기합니다. 
    
     data = client_socket.recv(42)
+    current_time = time.time()
     
     # print(len(data))
     decoded_data=["",""]
@@ -99,17 +103,51 @@ while True:
         print('start')
     else :
         decoded_data = decoding(data.decode())
-        print(decoded_data[0])
+        if decoded_data[1]!='C':
+            pass
+        else:
+            if decoded_data[0] not in passing_item:
+                search_result = bb.searchBarcode(decoded_data[0])
+                status = search_result['data']['workId']
+                print("new Item")
+                    if status=='0007':
+                        #탈장
+                        aa.out(decoded_data[0])
+                        print("탈장")
+                    else:
+                        pass
+                        
+
+                passing_item.append(decoded_data[0])
+                passing_time.append(current_time)
+
+
+
+            elif current_time - passing_time[passing_item.index(decoded_data[0])] > 5:
+                del_index = passing_item.index(decoded_data[0])
+                passing_item.pop(del_index)
+                passing_time.pop(del_index)
+                print("time reset")
+                    if status=='0007':
+                        #탈장
+                        aa.out(decoded_data[0])
+                        print("탈장")
+                    else:
+                        pass
+
+                passing_item.append(decoded_data[0])
+                passing_time.append(current_time)
+            
+            else:
+                pass
+
+
+
+        # print(decoded_data[0])
     
-    
-    if decoded_data[1]=='C':
-        search_result = bb.searchBarcode(decoded_data[0])
-        print(search_result)
-        status = search_result['data']['workId']
-    else:
-        pass
+  
     # print(bb.searchBarcode(decoding(data.decode())[0]))
-    time.sleep(10)
+    # time.sleep(10)
     # time.sleep(10)
     # ab.out(decoding(data.decode()))
 

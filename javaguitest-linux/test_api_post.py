@@ -241,7 +241,7 @@ def out(equip_barcode):
   response = requests.post(url_items, headers = headers ,data=json.dumps(newItem2))
 
 
-out("123456")
+# out("123456")
 # print(newItem)
 
 # response = requests.post(url_items, headers = headers ,data=json.dumps(newItem))
