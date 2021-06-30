@@ -286,7 +286,7 @@ public class Frame1 {
 		lblIPAdressLabel.setBounds(104, 10, 67, 29);
 		frmTest.getContentPane().add(lblIPAdressLabel);
 		
-		IP = new JTextField("192.168.10.220");
+		IP = new JTextField("192.168.10.91");
 		IP.setBounds(183, 14, 121, 21);
 		frmTest.getContentPane().add(IP);
 		IP.setColumns(10);

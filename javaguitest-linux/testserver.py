@@ -105,7 +105,7 @@ while True:
     if decoded_data[1]=='C':
         search_result = bb.searchBarcode(decoded_data[0])
         print(search_result)
-        print(search_result['data']['workId'])
+        status = search_result['data']['workId']
     else:
         pass
     # print(bb.searchBarcode(decoding(data.decode())[0]))
