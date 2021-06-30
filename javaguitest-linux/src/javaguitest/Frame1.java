@@ -159,7 +159,7 @@ public class Frame1 {
 					window.frmTest.setVisible(true);
 					cm.connect(address);
 					Reader.socketOne = cm;
-					send(cm);
+					// send(cm);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -2,6 +2,7 @@ import requests
 import json
 
 
+
 def searchBarcode(equipId) : 
 
   url_items = "http://office-api.hubilon.kr/equip/" + equipId
@@ -16,244 +17,262 @@ def searchBarcode(equipId) :
   if data['data'] is None:
     return_data = 0
     return return_data
-  elif data['workId'] == "0007" :
-    return_data = {
+  else:
+    return data
 
-        "message": {
 
-          "header": {
+# def searchBarcode(equipId) : 
 
-            "userId": "10148002",
+#   url_items = "http://office-api.hubilon.kr/equip/" + equipId
+#   #response = requests.get(url_items)
+#   headers = {
+#     "accept": "application/json;charset=UTF-8",
+#     "userId": "admin"
+#   }
 
-            "userPasswd": "",
+#   response = requests.get(url_items, headers=headers)
+#   data = response.json()
+#   if data['data'] is None:
+#     return_data = 0
+#     return return_data
+#   elif data['workId'] == "0007" :
+#     return_data = {
 
-            "userName": "강현수",
+#         "message": {
 
-            "telNo": "01073001435",
+#           "header": {
 
-            "userCellPhoneNo": "01073001435",
+#             "userId": "10148002",
 
-            "orgId": "C361443",
+#             "userPasswd": "",
 
-            "orgName": "융합기술BDO",
+#             "userName": "강현수",
 
-            "orgTypeCode": "INS_USER",
+#             "telNo": "01073001435",
 
-            "job_equnr": "",
+#             "userCellPhoneNo": "01073001435",
 
-            "currentPageNo": "",
+#             "orgId": "C361443",
 
-            "currentPageCount": "",
+#             "orgName": "융합기술BDO",
 
-            "pageUseYN": "",
+#             "orgTypeCode": "INS_USER",
 
-            "sessionId": "4C5nnrmjsVKsbZWSjkk8Dsfi.nbase01",
+#             "job_equnr": "",
 
-            "orgCode": "361443"
+#             "currentPageNo": "",
 
-          },
+#             "currentPageCount": "",
 
-          "body": {
+#             "pageUseYN": "",
 
-            "param": {
+#             "sessionId": "4C5nnrmjsVKsbZWSjkk8Dsfi.nbase01",
+
+#             "orgCode": "361443"
+
+#           },
+
+#           "body": {
+
+#             "param": {
 
             
 
-            },
+#             },
 
-            "paramList": [
+#             "paramList": [
 
-              {
+#               {
 
-                "WORKID": "0006",
+#                 "WORKID": "0006",
 
-                "PRCID": "0035",
+#                 "PRCID": "0035",
 
-                "CHKSCAN": "X",
+#                 "CHKSCAN": "X",
 
-                "PDAUSER": "10148002"
+#                 "PDAUSER": "10148002"
 
-              }
+#               }
 
-            ],
+#             ],
 
-            "subParamList": [
+#             "subParamList": [
 
-              {
+#               {
 
-                "PARTTYPE": "30",
+#                 "PARTTYPE": "30",
 
-                "DEVTYPE": "40",
+#                 "DEVTYPE": "40",
 
-                "EXBARCODE": "",
+#                 "EXBARCODE": "",
 
-                "BARCODE": equipId,
+#                 "BARCODE": equipId,
 
-                "DEVICEID": data['data']['deviceId'],
+#                 "DEVICEID": data['data']['deviceId'],
 
-                "SCAN": "1",
+#                 "SCAN": "1",
 
-                "CHKZKOSTL": "",
+#                 "CHKZKOSTL": "",
 
-                "ZPSTATU": "0080",
+#                 "ZPSTATU": "0080",
 
-                "MAKTX": "LUT_DACB(DAC100)"
+#                 "MAKTX": "LUT_DACB(DAC100)"
 
-              }
+#               }
 
-            ]
+#             ]
 
-          },
+#           },
 
-          "call": "ANDROID",
+#           "call": "ANDROID",
 
-          "jobSeq": 1,
+#           "jobSeq": 1,
 
-          "operatorId": "",
+#           "operatorId": "",
 
-          "runProgramId": "",
+#           "runProgramId": "",
 
-          "sysRegisterDate": {
-
-          
-
-          },
-
-          "sysUpdateDate": {
+#           "sysRegisterDate": {
 
           
 
-          }
+#           },
 
-        }
-
-      }
-    return return_data
-  else :
-    return_data = {
-
-      "message": {
-
-        "header": {
-
-          "userId": "10148002",
-
-          "userPasswd": "",
-
-          "userName": "강현수",
-
-          "telNo": "01073001435",
-
-          "userCellPhoneNo": "01073001435",
-
-          "orgId": "C361443",
-
-          "orgName": "양평고객기술팀",
-
-          "orgTypeCode": "INS_USER",
-
-          "job_equnr": "",
-
-          "currentPageNo": "",
-
-          "currentPageCount": "",
-
-          "pageUseYN": "",
-
-          "sessionId": "4C5nnrmjsVKsbZWSjkk8Dsfi.nbase01",
-
-          "orgCode": "361443"
-
-        },
-
-        "body": {
-
-          "param": {
+#           "sysUpdateDate": {
 
           
 
-          },
+#           }
 
-          "paramList": [
+#         }
 
-            {
+#       }
+#     return return_data
+#   else :
+#     return_data = {
 
-              "WORKID": "0007",
+#       "message": {
 
-              "PRCID": "0270",
+#         "header": {
 
-              "ZDOCRT": "X",
+#           "userId": "10148002",
 
-              "DEVICEID": "",
+#           "userPasswd": "",
 
-              "UBARCODE": "5E2K9001809002112",
+#           "userName": "강현수",
 
-              "CHKSTORT": "",
+#           "telNo": "01073001435",
 
-              "CHKSCAN": "X",
+#           "userCellPhoneNo": "01073001435",
 
-              "ZEQUIPLP": "B00000071710019012160",
+#           "orgId": "C361443",
 
-              "PDAUSER": "10148002"
+#           "orgName": "양평고객기술팀",
 
-            }
+#           "orgTypeCode": "INS_USER",
 
-          ],
+#           "job_equnr": "",
 
-          "subParamList": [
+#           "currentPageNo": "",
 
-            {
+#           "currentPageCount": "",
 
-              "PARTTYPE": "30",
+#           "pageUseYN": "",
 
-              "DEVTYPE": "40",
+#           "sessionId": "4C5nnrmjsVKsbZWSjkk8Dsfi.nbase01",
 
-              "BARCODE": equipId,
+#           "orgCode": "361443"
 
-              "CHKZKOSTL": "",
+#         },
 
-              "DEVICEID": "000720276",
+#         "body": {
 
-              "EXBARCODE": "",
+#           "param": {
 
-              "KOSTL": "C363198",
+          
 
-              "SCAN": "1",
+#           },
 
-              "ZPSTATU": "0060",
+#           "paramList": [
 
-              "MAKTX": "LOC_U9024A-OLT-SCU-P1"
+#             {
 
-            }
+#               "WORKID": "0007",
 
-          ]
+#               "PRCID": "0270",
 
-        },
+#               "ZDOCRT": "X",
 
-        "call": "ANDROID",
+#               "DEVICEID": "",
 
-        "jobSeq": 1,
+#               "UBARCODE": "5E2K9001809002112",
 
-        "operatorId": "",
+#               "CHKSTORT": "",
 
-        "runProgramId": "",
+#               "CHKSCAN": "X",
 
-        "sysRegisterDate": {
+#               "ZEQUIPLP": "B00000071710019012160",
+
+#               "PDAUSER": "10148002"
+
+#             }
+
+#           ],
+
+#           "subParamList": [
+
+#             {
+
+#               "PARTTYPE": "30",
+
+#               "DEVTYPE": "40",
+
+#               "BARCODE": equipId,
+
+#               "CHKZKOSTL": "",
+
+#               "DEVICEID": "000720276",
+
+#               "EXBARCODE": "",
+
+#               "KOSTL": "C363198",
+
+#               "SCAN": "1",
+
+#               "ZPSTATU": "0060",
+
+#               "MAKTX": "LOC_U9024A-OLT-SCU-P1"
+
+#             }
+
+#           ]
+
+#         },
+
+#         "call": "ANDROID",
+
+#         "jobSeq": 1,
+
+#         "operatorId": "",
+
+#         "runProgramId": "",
+
+#         "sysRegisterDate": {
 
         
 
-        },
+#         },
 
-        "sysUpdateDate": {
+#         "sysUpdateDate": {
 
         
 
-        }
+#         }
 
-      }
+#       }
 
-    }
-    return return_data
+#     }
+#     return return_data
 
 
 

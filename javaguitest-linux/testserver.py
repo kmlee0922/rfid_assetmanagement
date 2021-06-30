@@ -1,5 +1,7 @@
 import socket
-import test_api_post.py
+#import test_api_post
+import test_search_device
+import time
 
 rule = {
     "30":'0', '31':'1','32':'2','33':'3','34':'4','35':'5','36':'6','37':'7','38':'8','39':'9',
@@ -8,7 +10,8 @@ rule = {
 }
 
 
-ab = test_api_post
+# ab = test_api_post
+bb = test_search_device
 
 
 def deleted(data):
@@ -16,25 +19,29 @@ def deleted(data):
     
     return del_data
 
-def decoding(data):
-    
-    data=deleted(data)
-
-    decoding = ["",""]
-    temp=""
-    for i, value in enumerate(data):
-        if i<8:
-            if i%2==0:
-                temp+=value
+def decoding(data1):
+    try:
+        data=deleted(data1)
+        # print(data)
+        decoding = ["",""]
+        temp=""
+        for i, value in enumerate(data):
+            if i<8:
+                if i%2==0:
+                    temp+=value
+                else:
+                    temp+=value
+                    decoding[0]+=rule[str(temp)]
+                    temp=""
+            elif value.isdigit():
+                decoding[0]+=value
+            elif value in ['A','B','C']:
+                decoding[1]=value
             else:
-                temp+=value
-                decoding[0]+=rule[str(temp)]
-                temp=""
-        elif value.isdigit():
-            decoding[0]+=value
-        else:
-            decoding[1]=value
-    return decoding
+                pass
+        return decoding
+    except:
+        pass
 
 
 # 접속할 서버 주소입니다. 여기'에서는 루프백(loopback) 인터페이스 주소 즉 localhost를 사용합니다. 
@@ -76,15 +83,34 @@ print('Connected by', addr)
 while True:
 
     # 클라이언트가 보낸 메시지를 수신하기 위해 대기합니다. 
-    data = client_socket.recv(1024)
-
+   
+    data = client_socket.recv(42)
+    
+    # print(len(data))
+    decoded_data=["",""]
     # 빈 문자열을 수신하면 루프를 중지합니다. 
     if not data:
         break
 
     # 수신받은 문자열을 출력합니다.
-    print('Received from', addr, data.decode())
-    print(decoding(data.decode()))
+    # print('Received from', addr, data.decode())
+    
+    if '>v0 K180409X2' in data.decode():
+        print('start')
+    else :
+        decoded_data = decoding(data.decode())
+        print(decoded_data[0])
+    
+    
+    if decoded_data[1]=='C':
+        search_result = bb.searchBarcode(decoded_data[0])
+        print(search_result)
+        print(search_result['data']['workId'])
+    else:
+        pass
+    # print(bb.searchBarcode(decoding(data.decode())[0]))
+    time.sleep(10)
+    # time.sleep(10)
     # ab.out(decoding(data.decode()))
 
     # 받은 문자열을 다시 클라이언트로 전송해줍니다.(에코) 
