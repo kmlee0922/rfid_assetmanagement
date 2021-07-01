@@ -110,12 +110,13 @@ while True:
                 search_result = bb.searchBarcode(decoded_data[0])
                 status = search_result['data']['workId']
                 print("new Item")
-                    if status=='0007':
-                        #탈장
-                        aa.out(decoded_data[0])
-                        print("탈장")
-                    else:
-                        pass
+                print(status)
+                if status=='0007':
+                    #탈장
+                    aa.out(decoded_data[0])
+                    print("탈장")
+                else:
+                    pass
                         
 
                 passing_item.append(decoded_data[0])
@@ -127,13 +128,15 @@ while True:
                 del_index = passing_item.index(decoded_data[0])
                 passing_item.pop(del_index)
                 passing_time.pop(del_index)
+                search_result = bb.searchBarcode(decoded_data[0])
+                status = search_result['data']['workId']
                 print("time reset")
-                    if status=='0007':
-                        #탈장
-                        aa.out(decoded_data[0])
-                        print("탈장")
-                    else:
-                        pass
+                if status=='0007':
+                    #탈장
+                    aa.out(decoded_data[0])
+                    print("탈장")
+                else:
+                    pass
 
                 passing_item.append(decoded_data[0])
                 passing_time.append(current_time)
